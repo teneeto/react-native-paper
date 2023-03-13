@@ -9,16 +9,15 @@ import {
 } from 'react-native';
 
 import { useInternalTheme } from '../../core/theming';
-import type { InternalTheme } from '../../types';
+import type { ThemeProp } from '../../types';
 import type { PressableProps } from './Pressable';
 import { Pressable } from './Pressable';
-import type { ThemeProp } from '../../types';
 import { getTouchableRippleColors } from './utils';
 
 const ANDROID_VERSION_LOLLIPOP = 21;
 const ANDROID_VERSION_PIE = 28;
 
-type Props = PressableProps & {
+export type Props = PressableProps & {
   borderless?: boolean;
   background?: PressableAndroidRippleConfig;
   centered?: boolean;
