@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AccessibilityState, Animated, GestureResponderEvent, StyleProp, View, ViewStyle } from 'react-native';
+import { AccessibilityState, Animated, GestureResponderEvent, MouseEvent, StyleProp, View, ViewStyle } from 'react-native';
 import type { $RemoveChildren, ThemeProp } from '../../types';
 import { IconSource } from '../Icon';
 import Surface from '../Surface';
@@ -65,13 +65,29 @@ export declare type Props = $RemoveChildren<typeof Surface> & {
      */
     onPress?: (e: GestureResponderEvent) => void;
     /**
+     * Function to execute as soon as the touchable element is pressed and invoked even before onPress.
+     */
+    onPressIn?: (e: GestureResponderEvent) => void;
+    /**
+     * Function to execute as soon as the touch is released even before onPress.
+     */
+    onPressOut?: (e: GestureResponderEvent) => void;
+    /**
      * Function to execute on long press.
      */
-    onLongPress?: () => void;
+    onLongPress?: (e: GestureResponderEvent) => void;
     /**
      * The number of milliseconds a user must touch the element before executing `onLongPress`.
      */
     delayLongPress?: number;
+    /**
+     * Called when the hover is activated to provide visual feedback.
+     */
+    onHoverIn?: (e: MouseEvent) => void;
+    /**
+     * Called when the hover is deactivated to undo visual feedback.
+     */
+    onHoverOut?: (e: MouseEvent) => void;
     /**
      * @supported Available in v5.x with theme version 3
      *

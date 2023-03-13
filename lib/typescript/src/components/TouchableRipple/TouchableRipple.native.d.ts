@@ -1,17 +1,19 @@
 import * as React from 'react';
 import { PressableAndroidRippleConfig, StyleProp, ViewStyle, GestureResponderEvent } from 'react-native';
-import type { InternalTheme } from '../../types';
+import type { ThemeProp } from '../../types';
 import type { PressableProps } from './Pressable';
-declare type Props = PressableProps & {
+export declare type Props = PressableProps & {
     borderless?: boolean;
     background?: PressableAndroidRippleConfig;
+    centered?: boolean;
     disabled?: boolean;
     onPress?: (e: GestureResponderEvent) => void | null;
+    onLongPress?: (e: GestureResponderEvent) => void;
     rippleColor?: string;
     underlayColor?: string;
     children: React.ReactNode;
     style?: StyleProp<ViewStyle>;
-    theme: InternalTheme;
+    theme?: ThemeProp;
 };
 declare const TouchableRipple: {
     ({ style, background, borderless, disabled: disabledProp, rippleColor, underlayColor, children, theme: themeOverrides, ...rest }: Props): JSX.Element;

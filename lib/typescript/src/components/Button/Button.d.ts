@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Animated, GestureResponderEvent, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { Animated, GestureResponderEvent, MouseEvent, StyleProp, TextStyle, ViewStyle } from 'react-native';
 import type { ThemeProp } from '../../types';
 import { IconSource } from '../Icon';
 import Surface from '../Surface';
@@ -85,6 +85,14 @@ export declare type Props = React.ComponentProps<typeof Surface> & {
      */
     delayLongPress?: number;
     /**
+     * Called when the hover is activated to provide visual feedback.
+     */
+    onHoverIn?: (e: MouseEvent) => void;
+    /**
+     * Called when the hover is deactivated to undo visual feedback.
+     */
+    onHoverOut?: (e: MouseEvent) => void;
+    /**
      * Style of button's inner content.
      * Use this prop to apply custom height and width and to set the icon on the right with `flexDirection: 'row-reverse'`.
      */
@@ -143,6 +151,6 @@ export declare type Props = React.ComponentProps<typeof Surface> & {
  * export default MyComponent;
  * ```
  */
-declare const Button: ({ disabled, compact, mode, dark, loading, icon, buttonColor: customButtonColor, textColor: customTextColor, children, accessibilityLabel, accessibilityHint, onPress, onPressIn, onPressOut, onLongPress, delayLongPress, style, theme: themeOverrides, uppercase: uppercaseProp, contentStyle, labelStyle, testID, accessible, ...rest }: Props) => JSX.Element;
+declare const Button: ({ disabled, compact, mode, dark, loading, icon, buttonColor: customButtonColor, textColor: customTextColor, children, accessibilityLabel, accessibilityHint, onPress, onPressIn, onPressOut, onHoverOut, onHoverIn, onLongPress, delayLongPress, style, theme: themeOverrides, uppercase: uppercaseProp, contentStyle, labelStyle, testID, accessible, ...rest }: Props) => JSX.Element;
 export default Button;
 //# sourceMappingURL=Button.d.ts.map
