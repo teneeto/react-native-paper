@@ -7,7 +7,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import Color from 'color';
+import color from 'color';
 
 import { useInternalTheme } from '../../core/theming';
 import type { ThemeProp } from '../../types';
@@ -112,7 +112,7 @@ const TouchableRipple = ({
     theme,
     rippleColor,
   });
-  const hoverColor = Color(calculatedRippleColor).fade(0.5).rgb().string();
+  const hoverColor = color(calculatedRippleColor).fade(0.5).rgb().string();
   const handlePressIn = (e: any) => {
     const { centered, onPressIn } = rest;
 

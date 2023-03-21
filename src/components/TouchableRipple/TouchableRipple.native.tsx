@@ -11,7 +11,7 @@ import {
 import { useInternalTheme } from '../../core/theming';
 import type { ThemeProp } from '../../types';
 import type { PressableProps } from './Pressable';
-import { Pressable } from './Pressable';
+import { Pressable, PressableStateCallbackType } from './Pressable';
 import { getTouchableRippleColors } from './utils';
 
 const ANDROID_VERSION_LOLLIPOP = 21;
@@ -26,8 +26,13 @@ export type Props = PressableProps & {
   onLongPress?: (e: GestureResponderEvent) => void;
   rippleColor?: string;
   underlayColor?: string;
-  children: React.ReactNode;
-  style?: StyleProp<ViewStyle>;
+  children:
+    | ((state: PressableStateCallbackType) => React.ReactNode)
+    | React.ReactNode;
+  style?:
+    | StyleProp<ViewStyle>
+    | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)
+    | undefined;
   theme?: ThemeProp;
 };
 
@@ -75,7 +80,10 @@ const TouchableRipple = ({
       <Pressable
         {...rest}
         disabled={disabled}
-        style={[borderless && styles.overflowHidden, style]}
+        style={(state) => [
+          borderless && styles.overflowHidden,
+          typeof style === 'function' ? style(state) : style,
+        ]}
         android_ripple={
           background != null
             ? background
@@ -86,7 +94,11 @@ const TouchableRipple = ({
               }
         }
       >
-        {React.Children.only(children)}
+        {(state) =>
+          React.Children.only(
+            typeof children === 'function' ? children(state) : children
+          )
+        }
       </Pressable>
     );
   }
@@ -95,15 +107,19 @@ const TouchableRipple = ({
     <Pressable
       {...rest}
       disabled={disabled}
-      style={[
+      style={(state) => [
         borderless && styles.overflowHidden,
         showUnderlay && { backgroundColor: calculatedUnderlayColor },
-        style,
+        typeof style === 'function' ? style(state) : style,
       ]}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
     >
-      {React.Children.only(children)}
+      {(state) =>
+        React.Children.only(
+          typeof children === 'function' ? children(state) : children
+        )
+      }
     </Pressable>
   );
 };
