@@ -6,7 +6,9 @@ import DynamicColorTheme from '@site/src/components/DynamicColorTheme.tsx'
 
 # Theming
 
-<b>Note:</b> To observe changes related to switching between light and dark mode in the app, ensure that the <i>"Override force-dark"</i> feature in the <i>"developer options"</i> settings on your Android device is <b>not overridden</b>.
+:::note
+To observe changes related to switching between light and dark mode in the app, ensure that the <i>"Override force-dark"</i> feature in the <i>"developer options"</i> settings on your Android device is <b>not overridden</b>.
+:::
 
 ## Applying a theme to the whole app
 
@@ -198,7 +200,7 @@ Passed source color into the util is translated into tones to automatically prov
 
 *Source: [Material You Color System](https://m3.material.io/styles/color/the-color-system/custom-colors)*
 
-### Using schemes:
+### Using schemes
 
 Once we have copied the color schemes from the generated JSON above, we can use by passing it to the colors in `theme` object as below:
 
@@ -218,6 +220,43 @@ const theme = {
 export default function Main() {
   return (
     <PaperProvider theme={theme}>
+      <App />
+    </PaperProvider>
+  );
+}
+```
+
+### Sync dynamic colors with system colors
+
+Using [`pchmn/expo-material3-theme`](https://github.com/pchmn/expo-material3-theme) library you can easily access the Material 3 system colors from Android 12+ devices and seamlessly integrate them into your dynamic theme. Any changes made by the user to the system colors will be automatically reflected in the theme.
+
+:::info
+In case of incompatible devices, the library will revert to a default theme.
+:::
+
+To get started, follow the [installation instructions](https://github.com/pchmn/expo-material3-theme#installation) and check the following code:
+
+```tsx
+import { useMaterial3Theme } from '@pchmn/expo-material3-theme';
+import { useColorScheme } from 'react-native';
+import {
+  MD3DarkTheme,
+  MD3LightTheme,
+  Provider as PaperProvider,
+} from 'react-native-paper';
+import App from './src/App';
+
+export default function Main() {
+  const colorScheme = useColorScheme();
+  const { theme } = useMaterial3Theme();
+
+  const paperTheme =
+    colorScheme === 'dark'
+      ? { ...MD3DarkTheme, colors: theme.dark }
+      : { ...MD3LightTheme, colors: theme.light };
+
+  return (
+    <PaperProvider theme={paperTheme}>
       <App />
     </PaperProvider>
   );
@@ -275,8 +314,10 @@ There are two supported ways of overriding the theme:
 1. <b>Simple built-in theme overrides</b> - when you only customize the values and the whole theme schema remains the same
 2. <b>Advanced theme overrides</b> - when you <i>add new properties</i> or <i>change the built-in schema shape</i>
 
-📍<b>Warning</b>: TypeScript support for withTheme is currently limited to <b>Material You (MD3)</b> theme only. 
+:::caution
+TypeScript support for `withTheme` is currently limited to <b>Material You (MD3)</b> theme only. 
 <i>We are planning to provide a better support of handling custom theme overrides in future releases.</i>
+:::
 
 ### Simple built-in theme overrides
 
@@ -502,7 +543,7 @@ export default function App() {
 
 ### Migrating to Material You
 
-If you are migrating from Material Design 2 (4.x and lower) to Material You (5.x), please refer to our [Migration Guide](https://callstack.github.io/react-native-paper/introducing-v5-with-material-you.html)
+If you are migrating from Material Design 2 (4.x and lower) to Material You (5.x), please refer to our [Migration Guide](https://callstack.github.io/react-native-paper/docs/guides/migration-guide-to-5.0)
 
 ## Applying a theme to a paper component
 

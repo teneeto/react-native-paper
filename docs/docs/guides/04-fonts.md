@@ -20,7 +20,9 @@ The easiest way to install custom fonts to your RN project is do as follows:
       ],
   ```
 
-  Note: `fonts` is a folder with `.ttf` files
+:::note
+`fonts` is a folder with `.ttf` files
+:::
 
   2. Place your font files in your assets directory.
 
@@ -56,7 +58,9 @@ To create a custom font, prepare a `fontConfig` object where fonts are divided b
 
 The `fontConfig` object accepts `ios`, `android`, `macos`, `windows`, `web`, and `native`. Use these to override fonts on particular platforms.
 
-Note: At a minimum, you need to explicitly pass fonts for `android`, `ios`, and `web`.
+:::info
+At a minimum, you need to explicitly pass fonts for `android`, `ios`, and `web`.
+:::
 
 ```js
 import * as React from 'react';
@@ -134,13 +138,18 @@ export default function Main() {
 }
 ```
 
+:::tip
+If you're using TypeScript use `as const` when defining `fontConfig`.
+:::
+
 ### Material Design 3
 
 #### Variants
 
 In the latest version fonts in theme are structured based on the `variant` keys e.g. `displayLarge` or `bodyMedium` which are then used in `Text`'s component throughout the whole library.
 
-Note: The default `fontFamily` is different per particular platfrom:
+:::info
+The default `fontFamily` is different per particular platfrom:
 
 ```js
 Platform.select({
@@ -149,7 +158,7 @@ Platform.select({
   default: 'sans-serif', // and 'sans-serif-medium' for `fontWeight:"500"`
 }),
 ```
-
+:::
 
 * #### Display
 
@@ -158,7 +167,7 @@ Platform.select({
 
   ```json
   "displaySmall": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 36,
     "fontWeight": "400",
     "letterSpacing": 0,
@@ -172,7 +181,7 @@ Platform.select({
 
   ```json
   "displayMedium": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 45,
     "fontWeight": "400",
     "letterSpacing": 0,
@@ -186,7 +195,7 @@ Platform.select({
 
   ```json
   "displayLarge": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 57,
     "fontWeight": "400",
     "letterSpacing": 0,
@@ -204,7 +213,7 @@ Platform.select({
 
   ```json
   "headlineSmall": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 24,
     "fontWeight": "400",
     "letterSpacing": 0,
@@ -218,7 +227,7 @@ Platform.select({
 
   ```json
   "headlineMedium": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 28,
     "fontWeight": "400",
     "letterSpacing": 0,
@@ -232,7 +241,7 @@ Platform.select({
 
   ```json
   "headlineLarge": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 32,
     "fontWeight": "400",
     "letterSpacing": 0,
@@ -250,7 +259,7 @@ Platform.select({
 
   ```json
   "titleSmall": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 14,
     "fontWeight": "500",
     "letterSpacing": 0.1,
@@ -264,7 +273,7 @@ Platform.select({
 
   ```json
   "titleMedium": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 16,
     "fontWeight": "500",
     "letterSpacing": 0.15,
@@ -278,7 +287,7 @@ Platform.select({
 
   ```json
   "titleLarge": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 22,
     "fontWeight": "400",
     "letterSpacing": 0,
@@ -296,7 +305,7 @@ Platform.select({
 
   ```json
   "labelSmall": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 11,
     "fontWeight": "500",
     "letterSpacing": 0.5,
@@ -310,7 +319,7 @@ Platform.select({
 
   ```json
   "labelMedium": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 12,
     "fontWeight": "500",
     "letterSpacing": 0.5,
@@ -324,7 +333,7 @@ Platform.select({
 
   ```json
   "labelLarge": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 14,
     "fontWeight": "500",
     "letterSpacing": 0.1,
@@ -342,7 +351,7 @@ Platform.select({
 
   ```json
   "bodySmall": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 12,
     "fontWeight": "400",
     "letterSpacing": 0.4,
@@ -356,7 +365,7 @@ Platform.select({
 
   ```json
   "bodyMedium": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 14,
     "fontWeight": "400",
     "letterSpacing": 0.25,
@@ -370,7 +379,7 @@ Platform.select({
 
   ```json
   "bodyLarge": {
-    "fontFamily": "FontFamily",
+    "fontFamily": "Font",
     "fontSize": 16,
     "fontWeight": "400",
     "letterSpacing": 0.15,
@@ -381,7 +390,8 @@ Platform.select({
   </div>
 </div>
 
-<i>Note:</i> If any component uses Paper's `Text` component, without specified <b>variant</b>, then `default` variant is applied:
+:::info
+If any component uses Paper's `Text` component, without specified <b>variant</b>, then `default` variant is applied:
 
 ```json
 "default": {
@@ -390,6 +400,7 @@ Platform.select({
   "letterSpacing": 0,
 },
 ```
+:::
 
 #### Using `configureFonts` helper
 
@@ -491,3 +502,26 @@ export default function Main() {
   );
 }
 ```
+
+
+## Variable fonts
+
+Although React Native Paper supports `fontWeight` and `fontStyle` properties, there are multiple limitations to custom 
+fonts in React Native. Using custom [variable fonts](https://fonts.google.com/knowledge/introducing_type/introducing_variable_fonts) 
+is especially problematic, with some platforms failing to render variants entirely. To ensure correct typography in your
+app, we suggest installing each font variant as a separate file. Below you'll find example on how to set up React Native Paper 
+theme with custom fonts. 
+
+Should you decide to use a variable font anyway, second example will show you how to test if the font is rendered correctly in React Native on all platforms.
+ 
+<details>
+  <summary>Variable fonts examples</summary>
+  <ul>
+    <li>
+      <a href="https://snack.expo.dev/@react-native-paper/font-styles-variants">How to apply custom fonts with variants</a>
+    </li>
+    <li>
+      <a href="https://snack.expo.dev/@react-native-paper/typography-tester">How to test variable fonts in React Native</a>
+    </li>
+  </ul>
+</details>

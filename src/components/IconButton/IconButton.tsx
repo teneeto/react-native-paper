@@ -69,6 +69,10 @@ export type Props = $RemoveChildren<typeof TouchableRipple> & {
   style?: Animated.WithAnimatedValue<StyleProp<ViewStyle>>;
   ref?: React.RefObject<View>;
   /**
+   * TestID used for testing purposes
+   */
+  testID?: string;
+  /**
    * @optional
    */
   theme?: ThemeProp;
@@ -113,7 +117,7 @@ export type Props = $RemoveChildren<typeof TouchableRipple> & {
  * export default MyComponent;
  * ```
  *
- * @extends TouchableRipple props https://callstack.github.io/react-native-paper/touchable-ripple.html
+ * @extends TouchableRipple props https://callstack.github.io/react-native-paper/docs/components/TouchableRipple
  */
 const IconButton = forwardRef<View, Props>(
   (
